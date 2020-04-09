@@ -13,6 +13,7 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 - Estrutura criada para atender em ambiente de **Desenvolvimento**, como também, em ambiente de **Produção**.
 - Para seguir os passados de utilização, você deve ter instalado em seu computador o [Docker](https://docs.docker.com/engine/install/).
 - E para sistemas Linux, além do Docker, também é necessário o [Docker Compose](https://docs.docker.com/compose/install/).
+
 	> Nos  teste em `desenvolvimento`, foram usados o Framework PHP [Laravel 7.x](https://laravel.com/) e o Framework Javascript [VueJS](https://vuejs.org/).
 	> _**Obs.:** Não feram feitos teste em ambiente de `produção`._
 
@@ -29,7 +30,7 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 	# saida
 	usuario:$apr1$ImIUZeZB$cP2ieEvGmSoNH4Cyt1zHH.
 	```
- 3. Crie seu projeto de **frontend** dentro da pasta `front`
+ 3. Crie seu projeto de **frontend** com o nome `front`
 	> **Obs.:** para desenvolvimento, o traefik criará uma url de entrada como `front.localhost`, pelo menos no [VueJS](https://vuejs.org/), para conseguir ter acesso por essa url, foi necessário informar o `disableHostCheck` como **true** do `devServer`
 	```js
 	/* vue.config.js */
@@ -39,7 +40,9 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 		}
 	}
 	```
- 4. Criado o **frontend**, na pasta raiz, existe um arquivo chamado `compose.sh`, ele executa algumas validações e ações para que os containers possam subir, seguem comandos
+ 4. Crie seu projeto de **backend** com nome `back`
+    > **Obs.:** O serviço `back`, estará esperando que seu projeto **backend** contenha uma posta com nome `public` contendo o `index.php` do projeto, caso esse o `index.php` não esteja na pasta informada, você precisará fazer uma alteração nos arquivos `default-dev.conf` e `default-prod.conf`, na linha 5, informando onde o arquivo `index.php` se encontra
+ 5. Criado o **frontend**, na pasta raiz, existe um arquivo chamado `compose.sh`, ele executa algumas validações e ações para que os containers possam subir, seguem comandos
 	```bash
 	# modo: desenvolvimento em modo detach (em segundo plano)
 	./compose.sh "up -d" dev
@@ -51,3 +54,31 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 	./compose.sh "up -d" prod
 	```
 Seguido todos os passos acima descritos, você já deve ter acesso ao **dashboard** do traefik através da url `traefik.localhost`, informe usuário e senha conforme explicado no _passo 2_, e logo você verá uma coluna chamada **FRONTENDS**, lá estarão listadas as url's para acesso a cada um dos containers disponíveis.
+
+### Visão geral da estrutura do projeto
+    ```
+    traefik
+    |___docker
+    |    |___nginx
+    |        |___back
+    |        |    |   default-dev.conf
+    |        |    |   default-prod.conf
+    |        |___front
+    |        |    |   default.conf
+    |        |   Dockerfile
+    |
+    |________node
+    |        |   Dockerfile
+    |
+    |________php-fpm
+    |        |   Dockerfile
+    |
+    |   .env-example
+    |   .gitignore
+    |   compose.sh
+    |   docker-compose.override.yml
+    |   docker-compose.prod.yml
+    |   docker-compose.yml
+    |   README.md
+    |
+    ```
