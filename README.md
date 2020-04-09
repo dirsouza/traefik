@@ -56,7 +56,7 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 Seguido todos os passos acima descritos, você já deve ter acesso ao **dashboard** do traefik através da url `traefik.localhost`, informe usuário e senha conforme explicado no _passo 2_, e logo você verá uma coluna chamada **FRONTENDS**, lá estarão listadas as url's para acesso a cada um dos containers disponíveis.
 
 ### Visão geral da estrutura do projeto
-    ```
+```
     traefik
     |___docker
     |    |___nginx
@@ -81,4 +81,4 @@ Seguido todos os passos acima descritos, você já deve ter acesso ao **dashboar
     |   docker-compose.yml
     |   README.md
     |
-    ```
+```
