@@ -35,9 +35,9 @@ Estrutura em containers usando o [Traefik v1.7](https://docs.traefik.io/v1.7), t
 	```js
 	/* vue.config.js */
 	module.exports = {
-		devServer: {
-			disableHostCheck: true
-		}
+	   devServer: {
+	      disableHostCheck: true
+	   }
 	}
 	```
  4. Crie seu projeto de **backend** com nome `back`
